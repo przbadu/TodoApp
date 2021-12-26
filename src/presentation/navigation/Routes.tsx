@@ -5,9 +5,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Theme} from '@react-navigation/native';
 
 import {RootStackParamsList} from '.';
-import HomeScreen from '../screens/HomeScreen';
-import TasksScreen from '../screens/TasksScreen';
-import {darkTheme} from '../const/theme';
+import HomeScreen from '../screens/Home/HomeScreen';
+import TasksScreen from '../screens/Tasks/TasksScreen';
+import {darkTheme} from '../../const/theme';
 import Header from '../components/Header';
 
 const RootStack = createStackNavigator<RootStackParamsList>();
@@ -26,8 +26,7 @@ export default () => {
       <RootStack.Navigator
         initialRouteName="Home"
         screenOptions={{
-          headerTitle: props => <Header {...props} />,
-          headerStyle: {elevation: 0},
+          headerShown: false,
         }}>
         <RootStack.Screen name="Home" component={HomeScreen} />
         <RootStack.Screen name="Tasks" component={TasksScreen} />

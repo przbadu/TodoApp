@@ -21,7 +21,7 @@ export const darkTheme = {
   colors: {
     ...DarkTheme.colors,
     background: DarkThemeColors.primaryBackground,
-    card: DarkThemeColors.primaryBackground,
+    card: DarkThemeColors.secondaryBackground,
     text: DarkThemeColors.primaryText,
   },
 };

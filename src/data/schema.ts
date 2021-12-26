@@ -6,7 +6,10 @@ export const todoSchema = appSchema({
   tables: [
     tableSchema({
       name: TableName.PROJECTS,
-      columns: [{name: 'name', type: 'string'}],
+      columns: [
+        {name: 'name', type: 'string'},
+        {name: 'color', type: 'string'},
+      ],
     }),
     tableSchema({
       name: TableName.TASKS,

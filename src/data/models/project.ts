@@ -8,6 +8,14 @@ import action from '@nozbe/watermelondb/decorators/action';
 import {TableName} from '../TableName';
 import Task from './task';
 
+// TODO: remove it, it is temporary fix
+export type projectProps = {
+  id: string;
+  name: string;
+  color: string | undefined;
+  tasksCount: number;
+};
+
 export default class Project extends Model {
   static table = TableName.PROJECTS;
 
@@ -19,6 +27,7 @@ export default class Project extends Model {
   };
 
   @field('name') name!: string;
+  @field('color') color?: string;
 
   @children(TableName.TASKS) tasks!: Query<Task>;
 
@@ -28,9 +37,10 @@ export default class Project extends Model {
   /// list of incomplete tasks
   @lazy incompleteTasks = this.tasks.extend(Q.where('completed', false));
 
-  @action async save(name: string) {
+  @action async save(name: string, color?: string) {
     await this.collections.get<Project>(TableName.PROJECTS).create(project => {
       project.name = name;
+      project.color = color;
     });
   }
 

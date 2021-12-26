@@ -1,6 +1,4 @@
-import React from 'react'
-import Routes from "./navigation/Routes";
+import React from 'react';
+import Routes from './presentation/navigation/Routes';
 
-export default () => (
-  <Routes />
-)
+export default () => <Routes />;
