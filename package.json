@@ -10,12 +10,13 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@nozbe/watermelondb": "0.23",
+    "@nozbe/watermelondb": "^0.24.0",
     "react": "17.0.1",
     "react-native": "0.64.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-decorators": "^7.16.5",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/jest": "^26.0.23",
