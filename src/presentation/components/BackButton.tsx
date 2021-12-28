@@ -3,16 +3,18 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import IconButton from './IconButton';
 
-const BackButton = () => {
+type Props = {
+  icon?: string;
+  size?: number;
+};
+
+const BackButton = ({icon = 'chevron-left', size = 24}: Props) => {
   const navigation = useNavigation();
   const {colors} = useTheme();
 
   return (
     <View style={{...styles.buttonWrapper, backgroundColor: colors.card}}>
-      <IconButton
-        name="keyboard-backspace"
-        onPress={() => navigation.goBack()}
-      />
+      <IconButton name={icon} onPress={() => navigation.goBack()} size={size} />
     </View>
   );
 };

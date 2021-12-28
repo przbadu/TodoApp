@@ -3,10 +3,10 @@ import React, {useMemo, useState} from 'react';
 import {View, StyleSheet, SectionList} from 'react-native';
 import {TaskProps} from '../../../data/models/task';
 import AppCheckBox from '../../components/AppCheckBox';
+import AppHeader from '../../components/AppHeader';
 import AppText from '../../components/AppText';
-import BackButton from '../../components/BackButton';
 import Fab from '../../components/Fab';
-import Header from '../../components/Header';
+import Heading from '../../components/Heading';
 import IconButton from '../../components/IconButton';
 import ListViewItemRow from '../../components/ListViewItemRow';
 import {RootStackParamsList} from '../../navigation';
@@ -90,10 +90,7 @@ const TasksScreen = () => {
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <BackButton />
-          <Header style={{marginLeft: 20}}>School</Header>
-        </View>
+        <AppHeader label="School" />
 
         <View style={styles.contentWrapper}>
           <SectionList
@@ -101,7 +98,7 @@ const TasksScreen = () => {
             keyExtractor={(item, index) => `section-list-${item.id}-${index}`}
             renderItem={_renderItem}
             renderSectionHeader={({section: {title}}) => (
-              <Header style={{marginVertical: 15}}>{title}</Header>
+              <Heading style={{marginVertical: 15}}>{title}</Heading>
             )}
           />
         </View>

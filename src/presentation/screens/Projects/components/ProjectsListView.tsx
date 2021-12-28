@@ -5,7 +5,7 @@ import {View, FlatList, StyleSheet} from 'react-native';
 import {projectProps} from '../../../../data/models/project';
 import AppText from '../../../components/AppText';
 import Avatar from '../../../components/Avatar';
-import Header from '../../../components/Header';
+import Heading from '../../../components/Heading';
 import ListViewItemRow from '../../../components/ListViewItemRow';
 import {RootStackParamsList} from '../../../navigation';
 
@@ -25,7 +25,7 @@ const ProjectsListView = ({data}: Props) => {
       <ListViewItemRow onPress={() => handleItemPress(item)}>
         <View style={styles.row}>
           {/* <AppCheckBox isDone={false} color={item.color} /> */}
-          <Header style={{fontSize: 16, marginLeft: 10}}>{item.name}</Header>
+          <Heading style={{fontSize: 16, marginLeft: 10}}>{item.name}</Heading>
         </View>
 
         <Avatar color={item.color}>

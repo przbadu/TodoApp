@@ -3,7 +3,7 @@ import {FlatList} from 'react-native';
 
 import {projectProps} from '../../../../data/models/project';
 import AppText from '../../../components/AppText';
-import Header from '../../../components/Header';
+import Heading from '../../../components/Heading';
 import GridViewItem from '../../../components/GridViewItem';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamsList} from '../../../navigation';
@@ -23,7 +23,7 @@ const ProjectsGridView = ({data}: Props) => {
         color={item.color}
         itemsPerRow={orientation === 'PORTRAIT' ? 3 : 5}
         onPress={() => navigation.navigate('Tasks', {projectId: item.id})}>
-        <Header style={{fontSize: 18}}>{item.name}</Header>
+        <Heading style={{fontSize: 18}}>{item.name}</Heading>
         <AppText style={{fontSize: 12}}>
           {item.tasksCount.toString() + ' items'}
         </AppText>

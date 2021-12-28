@@ -1,12 +1,13 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import BackButton from '../../components/BackButton';
+import {View} from 'react-native';
+import AppHeader from '../../components/AppHeader';
+import AppText from '../../components/AppText';
 
 const AddProjectScreen = () => {
   return (
     <View>
-      <BackButton />
-      <Text>Add Project</Text>
+      <AppHeader label="Add Project" icon="close" size={20} />
+      <AppText>Add Project</AppText>
     </View>
   );
 };

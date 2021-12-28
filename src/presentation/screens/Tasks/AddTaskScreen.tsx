@@ -1,12 +1,14 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import BackButton from '../../components/BackButton';
+import {View} from 'react-native';
+import AppHeader from '../../components/AppHeader';
+import AppText from '../../components/AppText';
 
 const AddTaskScreen = () => {
   return (
     <View>
-      <BackButton />
-      <Text>add Tasks</Text>
+      <AppHeader label="Add Tasks" icon="close" size={20} />
+
+      <AppText>Add Task Screen</AppText>
     </View>
   );
 };

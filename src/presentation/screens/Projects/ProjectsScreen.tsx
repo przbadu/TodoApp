@@ -4,7 +4,7 @@ import {View, StyleSheet} from 'react-native';
 import {projectProps} from '../../../data/models/project';
 import Fab from '../../components/Fab';
 
-import Header from '../../components/Header';
+import Heading from '../../components/Heading';
 import IconButton from '../../components/IconButton';
 import {RootStackParamsList} from '../../navigation';
 import ProjectsGridView from './components/ProjectsGridView';
@@ -25,13 +25,13 @@ const ProjectsScreen = () => {
   return (
     <>
       <View style={styles.container}>
-        <Header style={{marginBottom: 10}}>Todo App</Header>
+        <Heading style={{marginBottom: 10}}>Todo App</Heading>
 
         <View style={styles.projectHeading}>
-          <Header
+          <Heading
             style={
               styles.subheading
-            }>{`Projects (${tempProjects.length})`}</Header>
+            }>{`Projects (${tempProjects.length})`}</Heading>
           <IconButton
             name={gridView ? 'view-list' : 'view-grid'}
             onPress={() => setGridView(!gridView)}
