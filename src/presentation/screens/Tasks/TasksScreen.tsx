@@ -1,12 +1,15 @@
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import React, {useMemo, useState} from 'react';
 import {View, StyleSheet, SectionList} from 'react-native';
 import {TaskProps} from '../../../data/models/task';
 import AppCheckBox from '../../components/AppCheckBox';
 import AppText from '../../components/AppText';
+import BackButton from '../../components/BackButton';
+import Fab from '../../components/Fab';
 import Header from '../../components/Header';
 import IconButton from '../../components/IconButton';
 import ListViewItemRow from '../../components/ListViewItemRow';
+import {RootStackParamsList} from '../../navigation';
 
 const _tasks: TaskProps[] = [
   {
@@ -48,9 +51,8 @@ const _tasks: TaskProps[] = [
 ];
 
 const TasksScreen = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
   const [tasks, setTasks] = useState(_tasks);
-  const navigation = useNavigation();
-  const {colors} = useTheme();
 
   const handlePress = (item: TaskProps) => {
     const index = tasks.findIndex(t => t.id === item.id);
@@ -86,28 +88,28 @@ const TasksScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={{...styles.buttonWrapper, backgroundColor: colors.card}}>
-          <IconButton
-            name="keyboard-backspace"
-            onPress={() => navigation.goBack()}
+    <>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <BackButton />
+          <Header style={{marginLeft: 20}}>School</Header>
+        </View>
+
+        <View style={styles.contentWrapper}>
+          <SectionList
+            sections={filteredTasks}
+            keyExtractor={(item, index) => `section-list-${item.id}-${index}`}
+            renderItem={_renderItem}
+            renderSectionHeader={({section: {title}}) => (
+              <Header style={{marginVertical: 15}}>{title}</Header>
+            )}
           />
         </View>
-        <Header style={{marginLeft: 20}}>School</Header>
       </View>
-
-      <View style={styles.contentWrapper}>
-        <SectionList
-          sections={filteredTasks}
-          keyExtractor={(item, index) => `section-list-${item.id}-${index}`}
-          renderItem={_renderItem}
-          renderSectionHeader={({section: {title}}) => (
-            <Header style={{marginVertical: 15}}>{title}</Header>
-          )}
-        />
-      </View>
-    </View>
+      <Fab onPress={() => navigation.navigate('AddTask', {projectId: '1'})}>
+        <IconButton name="plus" />
+      </Fab>
+    </>
   );
 };
 
@@ -119,11 +121,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  buttonWrapper: {
-    paddingVertical: 5,
-    paddingHorizontal: 8,
-    borderRadius: 8,
   },
   contentWrapper: {
     marginTop: 15,

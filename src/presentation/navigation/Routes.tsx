@@ -7,6 +7,8 @@ import {RootStackParamsList} from '.';
 import ProjectsScreen from '../screens/Projects/ProjectsScreen';
 import TasksScreen from '../screens/Tasks/TasksScreen';
 import {darkTheme} from '../../const/theme';
+import AddProjectScreen from '../screens/Projects/AddProjectScreen';
+import AddTaskScreen from '../screens/Tasks/AddTaskScreen';
 
 const RootStack = createStackNavigator<RootStackParamsList>();
 
@@ -27,9 +29,9 @@ export default () => {
           headerShown: false,
         }}>
         <RootStack.Screen name="Home" component={ProjectsScreen} />
-        <RootStack.Screen name="AddProject" component={ProjectsScreen} />
+        <RootStack.Screen name="AddProject" component={AddProjectScreen} />
         <RootStack.Screen name="Tasks" component={TasksScreen} />
-        <RootStack.Screen name="AddTask" component={TasksScreen} />
+        <RootStack.Screen name="AddTask" component={AddTaskScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

@@ -1,3 +1,4 @@
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {projectProps} from '../../../data/models/project';
@@ -5,6 +6,7 @@ import Fab from '../../components/Fab';
 
 import Header from '../../components/Header';
 import IconButton from '../../components/IconButton';
+import {RootStackParamsList} from '../../navigation';
 import ProjectsGridView from './components/ProjectsGridView';
 import ProjectsListView from './components/ProjectsListView';
 
@@ -16,6 +18,7 @@ const tempProjects: projectProps[] = [
 ];
 
 const ProjectsScreen = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
   const [projects] = useState<projectProps[]>(tempProjects);
   const [gridView, setGridView] = useState<boolean>(false);
 
@@ -41,7 +44,7 @@ const ProjectsScreen = () => {
           <ProjectsListView data={projects} />
         )}
       </View>
-      <Fab>
+      <Fab onPress={() => navigation.navigate('AddProject')}>
         <IconButton name="plus" />
       </Fab>
     </>
