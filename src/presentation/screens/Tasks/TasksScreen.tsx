@@ -1,7 +1,9 @@
+import {resolvePlugin} from '@babel/core';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useMemo, useState} from 'react';
 import {View, StyleSheet, SectionList} from 'react-native';
 import {TaskProps} from '../../../data/models/task';
+import AppCheckBox from '../../components/AppCheckBox';
 import AppText from '../../components/AppText';
 import Header from '../../components/Header';
 import IconButton from '../../components/IconButton';
@@ -47,11 +49,16 @@ const _tasks: TaskProps[] = [
 ];
 
 const TasksScreen = () => {
-  const [tasks, _setTasks] = useState(_tasks);
+  const [tasks, setTasks] = useState(_tasks);
   const navigation = useNavigation();
   const {colors} = useTheme();
 
-  const handlePress = (item: TaskProps) => {};
+  const handlePress = (item: TaskProps) => {
+    const index = tasks.findIndex(t => t.id === item.id);
+    const _tasks = [...tasks];
+    _tasks[index] = {..._tasks[index], isDone: !_tasks[index].isDone};
+    setTasks(_tasks);
+  };
 
   const filterTodoList = () => tasks.filter(task => task.isDone == false);
   const filterDoneList = () => tasks.filter(task => task.isDone == true);
@@ -59,23 +66,20 @@ const TasksScreen = () => {
   const filteredTasks = useMemo(() => {
     const _todos = filterTodoList();
     const _done = filterDoneList();
+    let _result = [];
+    if (_todos.length)
+      _result.push({title: `Tasks - ${_todos.length}`, data: _todos});
+    if (_done.length)
+      _result.push({title: `Done - ${_done.length}`, data: _done});
 
-    return [
-      {title: `Tasks - ${_todos.length}`, data: _todos},
-      {title: `Done - ${_done.length}`, data: _done},
-    ];
+    return _result;
   }, [tasks]);
 
   function _renderItem({item}: {item: TaskProps}) {
     return (
       <ListViewItemRow onPress={() => handlePress(item)}>
         <View style={styles.row}>
-          <View
-            style={{
-              ...styles.square,
-              borderColor: item.color || colors.background,
-            }}
-          />
+          <AppCheckBox isDone={item.isDone} color={item.color} />
           <AppText>{item.description}</AppText>
         </View>
       </ListViewItemRow>
@@ -129,13 +133,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  square: {
-    width: 24,
-    height: 24,
-    borderRadius: 8,
-    borderWidth: 2,
-    marginRight: 10,
   },
 });
 
