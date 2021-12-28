@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     marginTop: 15,
-    marginBottom: 5,
+    marginBottom: 15,
   },
   row: {
     flexDirection: 'row',

@@ -1,18 +1,25 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {Dimensions, View, ViewStyle, StyleSheet} from 'react-native';
+import {ViewStyle, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
-const width = Dimensions.get('screen').width;
+import {useScreenWidth} from '../hooks/useScreenWidth';
 
 type Props = {
   color?: string;
+  itemsPerRow?: number;
   containerStyles?: ViewStyle;
   children: React.ReactNode;
   onPress?: () => void;
 };
 
-const GridViewItem = ({color, containerStyles, children, onPress}: Props) => {
+const GridViewItem = ({
+  color,
+  containerStyles,
+  children,
+  itemsPerRow = 3,
+  onPress,
+}: Props) => {
+  const width = useScreenWidth();
   const {colors} = useTheme();
 
   return (
@@ -20,6 +27,7 @@ const GridViewItem = ({color, containerStyles, children, onPress}: Props) => {
       onPress={onPress}
       style={{
         ...styles.box,
+        width: (width - 10) / itemsPerRow - 10,
         backgroundColor: color || colors.card,
         ...containerStyles,
       }}>
@@ -33,7 +41,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: (width - 10) / 3 - 10,
     height: 100,
     marginRight: 10,
     marginBottom: 10,
