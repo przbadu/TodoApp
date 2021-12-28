@@ -1,4 +1,3 @@
-import {resolvePlugin} from '@babel/core';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useMemo, useState} from 'react';
 import {View, StyleSheet, SectionList} from 'react-native';

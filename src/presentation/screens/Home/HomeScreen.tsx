@@ -23,7 +23,10 @@ const HomeScreen = () => {
       <Header style={{marginBottom: 10}}>Todo App</Header>
 
       <View style={styles.projectHeading}>
-        <Header style={styles.subheading}>Projects (8)</Header>
+        <Header
+          style={
+            styles.subheading
+          }>{`Projects (${tempProjects.length})`}</Header>
         <IconButton
           name={gridView ? 'view-list' : 'view-grid'}
           onPress={() => setGridView(!gridView)}

@@ -1,13 +1,8 @@
-import {
-  NavigationProp,
-  useNavigation,
-  useTheme,
-} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 
 import {projectProps} from '../../../../data/models/project';
-import AppCheckBox from '../../../components/AppCheckBox';
 import AppText from '../../../components/AppText';
 import Avatar from '../../../components/Avatar';
 import Header from '../../../components/Header';
@@ -20,7 +15,6 @@ type Props = {
 
 const ListView = ({data}: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
-  const {colors} = useTheme();
 
   const handleItemPress = (item: projectProps) => {
     navigation.navigate('Tasks', {projectId: item.id});
@@ -30,8 +24,8 @@ const ListView = ({data}: Props) => {
     return (
       <ListViewItemRow onPress={() => handleItemPress(item)}>
         <View style={styles.row}>
-          <AppCheckBox isDone={false} color={item.color} />
-          <Header style={{fontSize: 16}}>{item.name}</Header>
+          {/* <AppCheckBox isDone={false} color={item.color} /> */}
+          <Header style={{fontSize: 16, marginLeft: 10}}>{item.name}</Header>
         </View>
 
         <Avatar color={item.color}>
