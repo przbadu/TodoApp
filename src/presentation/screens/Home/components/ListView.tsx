@@ -29,7 +29,9 @@ const ListView = ({data}: Props) => {
         </View>
 
         <Avatar color={item.color}>
-          <AppText style={{fontSize: 12}}>{item.tasksCount.toString()}</AppText>
+          <AppText style={{fontSize: 12, fontWeight: 'bold'}}>
+            {item.tasksCount.toString()}
+          </AppText>
         </Avatar>
       </ListViewItemRow>
     );
