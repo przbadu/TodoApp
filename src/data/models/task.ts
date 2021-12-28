@@ -7,6 +7,13 @@ import {Associations} from '@nozbe/watermelondb/Model';
 import {TableName} from '../TableName';
 import Project from './project';
 
+export interface TaskProps {
+  id: number | string;
+  description: string;
+  isDone: boolean;
+  color: string;
+}
+
 export default class Task extends Model {
   static table = TableName.TASKS;
 

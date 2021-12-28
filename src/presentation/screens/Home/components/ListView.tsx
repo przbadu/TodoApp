@@ -1,22 +1,33 @@
-import {useTheme} from '@react-navigation/native';
+import {
+  NavigationProp,
+  useNavigation,
+  useTheme,
+} from '@react-navigation/native';
 import React from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
+
 import {projectProps} from '../../../../data/models/project';
 import AppText from '../../../components/AppText';
 import Avatar from '../../../components/Avatar';
 import Header from '../../../components/Header';
 import ListViewItemRow from '../../../components/ListViewItemRow';
+import {RootStackParamsList} from '../../../navigation';
 
-interface Props {
+type Props = {
   data: projectProps[];
-}
+};
 
 const ListView = ({data}: Props) => {
+  const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
   const {colors} = useTheme();
+
+  const handleItemPress = (item: projectProps) => {
+    navigation.navigate('Tasks', {projectId: item.id});
+  };
 
   function renderItem({item}: {item: projectProps}) {
     return (
-      <ListViewItemRow>
+      <ListViewItemRow onPress={() => handleItemPress(item)}>
         <View style={styles.row}>
           <View
             style={{

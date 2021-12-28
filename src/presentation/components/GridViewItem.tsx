@@ -1,6 +1,7 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {Dimensions, View, ViewStyle, StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const width = Dimensions.get('screen').width;
 
@@ -8,20 +9,22 @@ type Props = {
   color?: string;
   containerStyles?: ViewStyle;
   children: React.ReactNode;
+  onPress?: () => void;
 };
 
-const GridViewItem = ({color, containerStyles, children}: Props) => {
+const GridViewItem = ({color, containerStyles, children, onPress}: Props) => {
   const {colors} = useTheme();
 
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       style={{
         ...styles.box,
         backgroundColor: color || colors.card,
         ...containerStyles,
       }}>
       {children}
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -2,7 +2,10 @@ import React from 'react';
 import {useTheme} from '@react-navigation/native';
 import {TextStyle} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
 
 type Props = {
   name: string;
@@ -22,5 +25,9 @@ export default ({name, size = 24, style, onPress}: Props) => {
     return renderIcon();
   }
 
-  return <TouchableOpacity onPress={onPress}>{renderIcon()}</TouchableOpacity>;
+  return (
+    <TouchableWithoutFeedback onPress={onPress}>
+      {renderIcon()}
+    </TouchableWithoutFeedback>
+  );
 };

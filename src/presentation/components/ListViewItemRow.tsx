@@ -1,24 +1,27 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {View, ViewStyle, StyleSheet} from 'react-native';
+import {ViewStyle, StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 type Props = {
   containerStyles?: ViewStyle;
   children: React.ReactNode;
+  onPress?: () => void;
 };
 
-const ListViewItemRow = ({containerStyles, children}: Props) => {
+const ListViewItemRow = ({containerStyles, children, onPress}: Props) => {
   const {colors} = useTheme();
 
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       style={{
         ...styles.box,
         backgroundColor: colors.card,
         ...containerStyles,
       }}>
       {children}
-    </View>
+    </TouchableOpacity>
   );
 };
 
