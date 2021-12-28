@@ -13,7 +13,7 @@ interface Props {
   data: projectProps[];
 }
 
-const GridView = ({data}: Props) => {
+const ProjectsGridView = ({data}: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
   const orientation = useOrientation();
 
@@ -41,4 +41,4 @@ const GridView = ({data}: Props) => {
   );
 };
 
-export default GridView;
+export default ProjectsGridView;

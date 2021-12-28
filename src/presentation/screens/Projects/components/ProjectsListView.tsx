@@ -13,7 +13,7 @@ type Props = {
   data: projectProps[];
 };
 
-const ListView = ({data}: Props) => {
+const ProjectsListView = ({data}: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
 
   const handleItemPress = (item: projectProps) => {
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListView;
+export default ProjectsListView;

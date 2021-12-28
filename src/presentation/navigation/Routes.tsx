@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {RootStackParamsList} from '.';
-import HomeScreen from '../screens/Home/HomeScreen';
+import ProjectsScreen from '../screens/Projects/ProjectsScreen';
 import TasksScreen from '../screens/Tasks/TasksScreen';
 import {darkTheme} from '../../const/theme';
 
@@ -26,8 +26,10 @@ export default () => {
         screenOptions={{
           headerShown: false,
         }}>
-        <RootStack.Screen name="Home" component={HomeScreen} />
+        <RootStack.Screen name="Home" component={ProjectsScreen} />
+        <RootStack.Screen name="AddProject" component={ProjectsScreen} />
         <RootStack.Screen name="Tasks" component={TasksScreen} />
+        <RootStack.Screen name="AddTask" component={TasksScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

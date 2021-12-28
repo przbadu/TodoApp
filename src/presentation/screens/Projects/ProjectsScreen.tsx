@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {projectProps} from '../../../data/models/project';
+import Fab from '../../components/Fab';
 
 import Header from '../../components/Header';
 import IconButton from '../../components/IconButton';
-import GridView from './components/GridView';
-import ListView from './components/ListView';
+import ProjectsGridView from './components/ProjectsGridView';
+import ProjectsListView from './components/ProjectsListView';
 
 const tempProjects: projectProps[] = [
   {id: '1', name: 'School', color: '#9A5128', tasksCount: 10},
@@ -14,27 +15,36 @@ const tempProjects: projectProps[] = [
   {id: '4', name: 'Travel', color: undefined, tasksCount: 10},
 ];
 
-const HomeScreen = () => {
+const ProjectsScreen = () => {
   const [projects] = useState<projectProps[]>(tempProjects);
   const [gridView, setGridView] = useState<boolean>(false);
 
   return (
-    <View style={styles.container}>
-      <Header style={{marginBottom: 10}}>Todo App</Header>
+    <>
+      <View style={styles.container}>
+        <Header style={{marginBottom: 10}}>Todo App</Header>
 
-      <View style={styles.projectHeading}>
-        <Header
-          style={
-            styles.subheading
-          }>{`Projects (${tempProjects.length})`}</Header>
-        <IconButton
-          name={gridView ? 'view-list' : 'view-grid'}
-          onPress={() => setGridView(!gridView)}
-        />
+        <View style={styles.projectHeading}>
+          <Header
+            style={
+              styles.subheading
+            }>{`Projects (${tempProjects.length})`}</Header>
+          <IconButton
+            name={gridView ? 'view-list' : 'view-grid'}
+            onPress={() => setGridView(!gridView)}
+          />
+        </View>
+
+        {gridView ? (
+          <ProjectsGridView data={projects} />
+        ) : (
+          <ProjectsListView data={projects} />
+        )}
       </View>
-
-      {gridView ? <GridView data={projects} /> : <ListView data={projects} />}
-    </View>
+      <Fab>
+        <IconButton name="plus" />
+      </Fab>
+    </>
   );
 };
 
@@ -54,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default ProjectsScreen;
