@@ -10,10 +10,10 @@ import Task from './task';
 
 // TODO: remove it, it is temporary fix
 export type projectProps = {
-  id: string;
+  id?: string;
   name: string;
   color: string | undefined;
-  tasksCount: number;
+  tasksCount?: number;
 };
 
 export default class Project extends Model {

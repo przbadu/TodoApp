@@ -16,7 +16,7 @@ const Fab = ({color, children, onPress}: Props) => {
       <View
         style={{
           ...styles.container,
-          backgroundColor: color || colors.card,
+          backgroundColor: color || colors.primary,
           borderColor: colors.border,
         }}>
         {children}

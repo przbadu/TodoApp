@@ -7,13 +7,13 @@ import AppText from './AppText';
 
 type Props = {label?: string} & TextInputProps;
 
-const AppTextInput = ({label, onChange, ...rest}: Props) => {
+const AppTextInput = ({label, ...rest}: Props) => {
   const {colors} = useTheme();
 
   return (
     <View>
       {label && (
-        <AppText style={{marginTop: 20, marginBottom: 10}}>{label}</AppText>
+        <AppText style={{marginTop: 10, marginBottom: 5}}>{label}</AppText>
       )}
       <TextInput
         style={{
@@ -23,7 +23,6 @@ const AppTextInput = ({label, onChange, ...rest}: Props) => {
           color: colors.text,
         }}
         placeholderTextColor={colors.text}
-        onChange={onChange}
         {...rest}
       />
     </View>

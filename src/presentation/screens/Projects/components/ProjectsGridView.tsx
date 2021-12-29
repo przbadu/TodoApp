@@ -8,6 +8,7 @@ import GridViewItem from '../../../components/GridViewItem';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamsList} from '../../../navigation';
 import {useOrientation} from '../../../hooks/useOrientation';
+import GridItem from './GridItem';
 
 interface Props {
   data: projectProps[];
@@ -17,24 +18,15 @@ const ProjectsGridView = ({data}: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
   const orientation = useOrientation();
 
-  function renderItem({item}: {item: projectProps}) {
-    return (
-      <GridViewItem
-        color={item.color}
-        itemsPerRow={orientation === 'PORTRAIT' ? 3 : 5}
-        onPress={() => navigation.navigate('Tasks', {projectId: item.id})}>
-        <Heading style={{fontSize: 18}}>{item.name}</Heading>
-        <AppText style={{fontSize: 12}}>
-          {item.tasksCount.toString() + ' items'}
-        </AppText>
-      </GridViewItem>
-    );
-  }
-
   return (
     <FlatList
       data={data}
-      renderItem={renderItem}
+      renderItem={({item}) => (
+        <GridItem
+          onPress={() => navigation.navigate('Tasks', {projectId: item.id!})}
+          item={item}
+        />
+      )}
       numColumns={orientation === 'PORTRAIT' ? 3 : 5}
       key={`${orientation}-grid-view`}
     />

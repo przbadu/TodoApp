@@ -3,14 +3,17 @@ import React from 'react';
 import {Text, TextStyle} from 'react-native';
 
 type Props = {
+  color?: string;
   style?: TextStyle;
   children: string;
 };
 
-const AppText = ({style, children}: Props) => {
+const AppText = ({style, color, children}: Props) => {
   const {colors} = useTheme();
 
-  return <Text style={{color: colors.text, ...style}}>{children}</Text>;
+  return (
+    <Text style={{color: color || colors.text, ...style}}>{children}</Text>
+  );
 };
 
 export default AppText;
