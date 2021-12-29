@@ -2,12 +2,12 @@ import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {ViewStyle, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {GenericTouchableProps} from 'react-native-gesture-handler/lib/typescript/components/touchables/GenericTouchable';
 
 type Props = {
   containerStyles?: ViewStyle;
   children: React.ReactNode;
-  onPress?: () => void;
-};
+} & GenericTouchableProps;
 
 const ListViewItemRow = ({containerStyles, children, onPress}: Props) => {
   const {colors} = useTheme();

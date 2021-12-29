@@ -16,7 +16,9 @@ const AppCheckBox = ({isDone, color}: Props) => {
   return (
     <View style={{...styles.container, borderColor: _color}}>
       {isDone && (
-        <IconButton name="check" style={{...styles.check, color: _color}} />
+        <View style={styles.check}>
+          <IconButton name="check" color={_color} />
+        </View>
       )}
     </View>
   );

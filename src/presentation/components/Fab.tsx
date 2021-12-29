@@ -1,12 +1,12 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import {GenericTouchableProps} from 'react-native-gesture-handler/lib/typescript/components/touchables/GenericTouchable';
 
 type Props = {
   children: React.ReactNode;
   color?: string;
-  onPress?: () => void;
-};
+} & GenericTouchableProps;
 
 const Fab = ({color, children, onPress}: Props) => {
   const {colors} = useTheme();
