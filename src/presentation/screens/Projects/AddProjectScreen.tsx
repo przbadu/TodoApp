@@ -15,7 +15,6 @@ const AddProjectScreen = () => {
     name: '',
     color: randomColor(),
   });
-  const handleChange = () => {};
 
   return (
     <View style={styles.container}>
@@ -23,13 +22,13 @@ const AddProjectScreen = () => {
 
       <View style={styles.contentWrapper}>
         <AppTextInput
+          autoFocus
           label="Project Name"
           value={form.name}
           onChangeText={text => setForm({...form, name: text})}
         />
         <AppTextInput
           label="Color"
-          onChange={handleChange}
           value={form.color}
           onChangeText={text => setForm({...form, name: text})}
         />
