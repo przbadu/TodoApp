@@ -30,7 +30,6 @@ const AddProjectScreen = () => {
 
       <View style={styles.contentWrapper}>
         <AppTextInput
-          autoFocus
           label="Project Name"
           value={form.name}
           onChangeText={text => setForm({...form, name: text})}
