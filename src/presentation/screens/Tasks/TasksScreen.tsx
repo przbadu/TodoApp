@@ -1,7 +1,7 @@
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import {View, SectionList} from 'react-native';
-import {compose} from 'recompose';
+import {compose, withHandlers} from 'recompose';
 import withObservables from '@nozbe/with-observables';
 
 import Task from '../../../data/models/task';
@@ -16,7 +16,10 @@ import {RootStackParamsList} from '../../navigation';
 import {styles} from './styles';
 import {projects} from '../../../data/controllers/ProjectsController';
 import Project from '../../../data/models/project';
-import TasksController from '../../../data/controllers/TasksController';
+
+import TasksController, {
+  tasks,
+} from '../../../data/controllers/TasksController';
 
 type Props = {
   project: Project;
@@ -26,8 +29,9 @@ type Props = {
 const TasksScreen = ({project, tasks}: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
 
-  const toggleTodo = async (item: Task) => {
+  const handleToggleTask = async (item: Task) => {
     await TasksController.toggle(item);
+    navigation.navigate('Tasks', {projectId: project.id});
   };
 
   const filterTodoList = () => tasks.filter(task => task.isDone == false);
@@ -47,7 +51,7 @@ const TasksScreen = ({project, tasks}: Props) => {
 
   function _renderItem({item}: {item: Task}) {
     return (
-      <ListViewItemRow onPress={() => toggleTodo(item)}>
+      <ListViewItemRow onPress={() => handleToggleTask(item)}>
         <View style={styles.row}>
           <AppCheckBox isDone={item.isDone} color={project.color} />
           <AppText>{item.description}</AppText>
@@ -63,7 +67,7 @@ const TasksScreen = ({project, tasks}: Props) => {
 
         <View style={styles.contentWrapper}>
           <SectionList
-            sections={filteredTasks}
+            sections={[{title: `Tasks ${tasks.length}`, data: tasks}]}
             keyExtractor={(item, index) => `section-list-${item.id}-${index}`}
             renderItem={_renderItem}
             renderSectionHeader={({section: {title}}) => (

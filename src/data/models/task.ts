@@ -30,6 +30,12 @@ export default class Task extends Model {
     });
   }
 
+  @action async toggleTask() {
+    await this.update(task => {
+      task.isDone = !task.isDone;
+    });
+  }
+
   @action async markAsUndone() {
     await this.update(task => {
       task.isDone = false;

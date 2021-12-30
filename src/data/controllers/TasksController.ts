@@ -8,13 +8,9 @@ export const tasks = database.collections.get<Task>(TableName.TASKS);
 export default class TasksController {
   static async toggle(task: Task) {
     await database.write(async () => {
-      task.isDone ? task.markAsUndone() : task.markAsDone();
+      await task.update(task => {
+        task.isDone = !task.isDone;
+      });
     });
-  }
-
-  static async save(project: Project, description: string) {
-    // await database.action(async () => {
-    await project.addTask(description);
-    // });
   }
 }

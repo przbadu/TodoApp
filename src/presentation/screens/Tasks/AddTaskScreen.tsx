@@ -2,7 +2,6 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {compose, withHandlers} from 'recompose';
-import {withDatabase} from '@nozbe/watermelondb/DatabaseProvider';
 import withObservables from '@nozbe/with-observables';
 
 import AppButton from '../../components/AppButton';
@@ -60,4 +59,4 @@ const enhance = compose(
   }),
 );
 
-export default withDatabase(enhance(AddTaskScreen));
+export default enhance(AddTaskScreen);
