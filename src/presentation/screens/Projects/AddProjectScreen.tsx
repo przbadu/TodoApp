@@ -11,9 +11,15 @@ import ListItem from './components/ListItem';
 import ProjectsController from '../../../data/controllers/ProjectsController';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamsList} from '../../navigation';
+import ListViewItemRow from '../../components/ListViewItemRow';
+import Avatar from '../../components/Avatar';
+import AppText from '../../components/AppText';
+import GridViewItem from '../../components/GridViewItem';
+import {useOrientation} from '../../hooks/useOrientation';
 
 const AddProjectScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
+  const orientation = useOrientation();
   const [form, setForm] = useState({
     name: '',
     color: randomColor(),
@@ -30,6 +36,7 @@ const AddProjectScreen = () => {
 
       <View style={styles.contentWrapper}>
         <AppTextInput
+          autoFocus
           label="Project Name"
           value={form.name}
           onChangeText={text => setForm({...form, name: text})}
@@ -47,19 +54,40 @@ const AddProjectScreen = () => {
         />
       </View>
 
-      <View style={styles.contentWrapper}>
-        <Heading>PREVIEW</Heading>
+      {form.name ? (
+        <View style={styles.contentWrapper}>
+          <Heading>PREVIEW</Heading>
 
-        {/* list view preview */}
-        <View style={{marginTop: 10}}>
-          {form.name ? <ListItem item={form} /> : null}
-        </View>
+          {/* list view preview */}
+          <View style={{marginTop: 10}}>
+            <ListViewItemRow>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Heading style={{fontSize: 16, marginLeft: 10}}>
+                  {form.name}
+                </Heading>
+              </View>
 
-        {/* grid view preview */}
-        <View style={{marginTop: 10}}>
-          {form.name ? <GridItem item={form} /> : null}
+              <Avatar color={form.color}>
+                <AppText style={{fontSize: 12, fontWeight: 'bold'}}>0</AppText>
+              </Avatar>
+            </ListViewItemRow>
+          </View>
+
+          {/* grid view preview */}
+          <View style={{marginTop: 10}}>
+            <GridViewItem
+              color={form.color}
+              itemsPerRow={orientation === 'PORTRAIT' ? 3 : 5}>
+              <Heading style={{fontSize: 18}}>{form.name}</Heading>
+              <AppText style={{fontSize: 12}}>0 items</AppText>
+            </GridViewItem>
+          </View>
         </View>
-      </View>
+      ) : null}
     </View>
   );
 };

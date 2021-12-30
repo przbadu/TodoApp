@@ -34,6 +34,7 @@ const AddTaskScreen = ({project, addTask}: Props) => {
         <AppTextInput
           label="What's in your mind?"
           value={form.name}
+          autoFocus
           onChangeText={text => setForm({...form, name: text})}
         />
         <AppButton
