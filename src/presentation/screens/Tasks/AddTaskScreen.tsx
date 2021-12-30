@@ -18,7 +18,7 @@ const AddTaskScreen = () => {
           onChangeText={text => setForm({...form, name: text})}
         />
         <AppButton
-          label="Add Project"
+          label="Add Task"
           icon="plus"
           containerStyles={{marginTop: 20}}
         />
