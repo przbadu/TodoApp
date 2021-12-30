@@ -8,21 +8,13 @@ import action from '@nozbe/watermelondb/decorators/action';
 import {TableName} from '../TableName';
 import Task from './task';
 
-// TODO: remove it, it is temporary fix
-export type projectProps = {
-  id?: string;
-  name: string;
-  color: string | undefined;
-  tasksCount?: number;
-};
-
 export default class Project extends Model {
   static table = TableName.PROJECTS;
 
   static associations: Associations = {
     [TableName.TASKS]: {
       type: 'has_many',
-      foreignKey: 'task_id',
+      foreignKey: 'project_id',
     },
   };
 
@@ -37,20 +29,13 @@ export default class Project extends Model {
   /// list of incomplete tasks
   @lazy incompleteTasks = this.tasks.extend(Q.where('completed', false));
 
-  @action async save(name: string, color?: string) {
-    await this.collections.get<Project>(TableName.PROJECTS).create(project => {
-      project.name = name;
-      project.color = color;
-    });
-  }
-
   @action async modify(name: string) {
     await this.update(project => {
       project.name = name;
     });
   }
 
-  @action async createTask(description: string, isDone: boolean) {
+  @action async addTask(description: string, isDone?: boolean) {
     await this.collections.get<Task>(TableName.TASKS).create(task => {
       task.project.set(this);
       task.description = description;

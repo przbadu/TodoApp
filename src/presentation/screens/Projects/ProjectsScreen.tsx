@@ -1,26 +1,29 @@
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {projectProps} from '../../../data/models/project';
-import Fab from '../../components/Fab';
+import {View} from 'react-native';
+import withObservables from '@nozbe/with-observables';
 
+import Project from '../../../data/models/project';
+import Fab from '../../components/Fab';
 import Heading from '../../components/Heading';
 import IconButton from '../../components/IconButton';
 import {RootStackParamsList} from '../../navigation';
 import ProjectsGridView from './components/ProjectsGridView';
 import ProjectsListView from './components/ProjectsListView';
 
-const tempProjects: projectProps[] = [
-  {id: '1', name: 'School', color: '#9A5128', tasksCount: 10},
-  {id: '2', name: 'Work', color: '#EF5DA8', tasksCount: 10},
-  {id: '3', name: 'Personal', color: '#5D5FEF', tasksCount: 10},
-  {id: '4', name: 'Travel', color: undefined, tasksCount: 10},
-];
+import {styles} from './styles';
+import {compose} from 'recompose';
+import {projects} from '../../../data/controllers/ProjectsController';
 
-const ProjectsScreen = () => {
+type Props = {
+  projects: Project[];
+};
+
+const ProjectsScreen = ({projects}: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
-  const [projects] = useState<projectProps[]>(tempProjects);
   const [gridView, setGridView] = useState<boolean>(false);
+
+  console.log(projects);
 
   return (
     <>
@@ -28,10 +31,9 @@ const ProjectsScreen = () => {
         <Heading style={{marginBottom: 10}}>Todo App</Heading>
 
         <View style={styles.projectHeading}>
-          <Heading
-            style={
-              styles.subheading
-            }>{`Projects (${tempProjects.length})`}</Heading>
+          <Heading style={styles.subheading}>{`Projects (${
+            (projects || []).length
+          })`}</Heading>
           <IconButton
             name={gridView ? 'view-list' : 'view-grid'}
             onPress={() => setGridView(!gridView)}
@@ -51,20 +53,10 @@ const ProjectsScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 10,
-  },
-  subheading: {
-    fontWeight: 'normal',
-  },
-  projectHeading: {
-    marginVertical: 10,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-});
+const enhance = compose(
+  withObservables([], () => ({
+    projects: projects.query().observe(),
+  })),
+);
 
-export default ProjectsScreen;
+export default enhance(ProjectsScreen);

@@ -1,23 +1,19 @@
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {View, FlatList, StyleSheet} from 'react-native';
+import {FlatList} from 'react-native';
+import Project from '../../../../data/models/project';
 
-import {projectProps} from '../../../../data/models/project';
-import AppText from '../../../components/AppText';
-import Avatar from '../../../components/Avatar';
-import Heading from '../../../components/Heading';
-import ListViewItemRow from '../../../components/ListViewItemRow';
 import {RootStackParamsList} from '../../../navigation';
 import ListItem from './ListItem';
 
 type Props = {
-  data: projectProps[];
+  data: Project[];
 };
 
 const ProjectsListView = ({data}: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
 
-  const handleItemPress = (item: projectProps) => {
+  const handleItemPress = (item: Project) => {
     navigation.navigate('Tasks', {projectId: item.id!});
   };
 

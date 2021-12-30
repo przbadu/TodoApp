@@ -1,20 +1,28 @@
 import randomColor from 'randomcolor';
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
+
 import AppButton from '../../components/AppButton';
 import AppHeader from '../../components/AppHeader';
 import AppTextInput from '../../components/AppTextInput';
 import Heading from '../../components/Heading';
 import GridItem from './components/GridItem';
 import ListItem from './components/ListItem';
+import ProjectsController from '../../../data/controllers/ProjectsController';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParamsList} from '../../navigation';
 
 const AddProjectScreen = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
   const [form, setForm] = useState({
-    id: 20,
-    tasksCount: 10,
     name: '',
     color: randomColor(),
   });
+
+  async function addProject() {
+    await ProjectsController.save(form.name, form.color);
+    navigation.navigate('Home');
+  }
 
   return (
     <View style={styles.container}>
@@ -36,6 +44,7 @@ const AddProjectScreen = () => {
           label="Add Project"
           icon="plus"
           containerStyles={{marginTop: 20}}
+          onPress={addProject}
         />
       </View>
 

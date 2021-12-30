@@ -1,17 +1,21 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {GenericTouchableProps} from 'react-native-gesture-handler/lib/typescript/components/touchables/GenericTouchable';
-import {projectProps} from '../../../../data/models/project';
+import {compose} from 'recompose';
+import withObservables from '@nozbe/with-observables';
+
+import Project from '../../../../data/models/project';
 import AppText from '../../../components/AppText';
 import Avatar from '../../../components/Avatar';
 import Heading from '../../../components/Heading';
 import ListViewItemRow from '../../../components/ListViewItemRow';
 
 type Props = {
-  item: projectProps;
+  item: Project;
+  taskCount: number;
 } & GenericTouchableProps;
 
-const ListItem = ({item, onPress}: Props) => {
+const ListItem = ({item, taskCount, onPress}: Props) => {
   return (
     <ListViewItemRow onPress={onPress}>
       <View style={styles.row}>
@@ -21,7 +25,7 @@ const ListItem = ({item, onPress}: Props) => {
 
       <Avatar color={item.color}>
         <AppText style={{fontSize: 12, fontWeight: 'bold'}}>
-          {item.tasksCount!.toString()}
+          {taskCount.toString()}
         </AppText>
       </Avatar>
     </ListViewItemRow>
@@ -42,4 +46,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListItem;
+const enhance = compose(
+  withObservables(['item'], ({item}: {item: Project}) => ({
+    taskCount: item.tasks.observeCount(),
+  })),
+);
+export default enhance(ListItem);

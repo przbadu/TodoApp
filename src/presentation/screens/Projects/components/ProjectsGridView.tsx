@@ -1,17 +1,14 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 
-import {projectProps} from '../../../../data/models/project';
-import AppText from '../../../components/AppText';
-import Heading from '../../../components/Heading';
-import GridViewItem from '../../../components/GridViewItem';
+import Project from '../../../../data/models/project';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamsList} from '../../../navigation';
 import {useOrientation} from '../../../hooks/useOrientation';
 import GridItem from './GridItem';
 
 interface Props {
-  data: projectProps[];
+  data: Project[];
 }
 
 const ProjectsGridView = ({data}: Props) => {
@@ -23,7 +20,7 @@ const ProjectsGridView = ({data}: Props) => {
       data={data}
       renderItem={({item}) => (
         <GridItem
-          onPress={() => navigation.navigate('Tasks', {projectId: item.id!})}
+          onPress={() => navigation.navigate('Tasks', {projectId: item.id})}
           item={item}
         />
       )}
